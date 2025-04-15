@@ -11,6 +11,7 @@ package mx.edu.itses.progadv.proyectofinal.mvc.models;
 public class Peticiones {
     private String id;
     private String nombre;
+    private String cliente;
     private String apellidos;
     private String departamento;
 
