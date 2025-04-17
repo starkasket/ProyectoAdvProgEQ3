@@ -26,4 +26,6 @@ public interface EmpleadoDAO {
     
     public Map<String,String> departamentos();
     
+   
+    
 }

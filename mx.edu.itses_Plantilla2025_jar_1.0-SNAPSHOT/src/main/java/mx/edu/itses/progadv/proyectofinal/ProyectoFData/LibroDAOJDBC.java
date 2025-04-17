@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import mx.edu.itses.progadv.proyectofinal.ProyectoFModelo.Libro;
+import mx.edu.itses.progadv.proyectofinal.ProyectoFModels.Libro;
 import mx.edu.itses.progadv.proyectofinal.mvc.models.Empleado;
 import static mx.edu.itses.progadv.proyectofinal.mvc.data.Conexion.*;
 import mx.edu.itses.progadv.proyectofinal.mvc.functions.Padvf;
@@ -171,13 +171,13 @@ public class LibroDAOJDBC implements LibroDAO {
         }
         return deleterow;
     }
-
+//Map actualizado a base la interface
     @Override
-    public Map<String, String> editoriales() {
+    public Map<String, Libro> editoriales() {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        Map<String, String> editoriales = new HashMap<>();
+        Map<String, Libro> Mapa = new HashMap<>();
         try {
             conn = getConnection();
             stmt = conn.prepareStatement(SQL_SELECT_DEPARTAMENTOS);
@@ -185,7 +185,11 @@ public class LibroDAOJDBC implements LibroDAO {
             while (rs.next()) {
                 String id = rs.getString("id");
                 String editorial = rs.getString("editorial");
-                editoriales.put(id,editorial);
+                String estado_Solicitud = rs.getString("Estado");
+                
+                Libro libro = new Libro(editorial, estado_Solicitud);
+                
+                Mapa.put(id, libro);
             }
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
@@ -195,6 +199,6 @@ public class LibroDAOJDBC implements LibroDAO {
             close(conn);
         }
 
-        return editoriales;
+        return Mapa;
     }
 }

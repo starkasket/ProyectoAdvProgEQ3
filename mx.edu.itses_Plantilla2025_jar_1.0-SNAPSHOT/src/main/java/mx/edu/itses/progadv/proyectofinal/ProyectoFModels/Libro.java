@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package mx.edu.itses.progadv.proyectofinal.ProyectoFModelo;
+package mx.edu.itses.progadv.proyectofinal.ProyectoFModels;
 
 /**
  *
@@ -22,6 +22,7 @@ public class Libro {
     1.vacio, 
     2.con todos los parametros,
     3.Excepto el prametro id.
+    4. solo con id, ediorial y estado_solicitud
     */
 
     public Libro() {
@@ -49,6 +50,13 @@ public class Libro {
         this.cantidad_solicitada = cantidad_solicitada;
         this.estado_Solicitud = estado_Solicitud;
     }
+
+    public Libro(String editorial, String estado_Solicitud) {
+        this.editorial = editorial;
+        this.estado_Solicitud = estado_Solicitud;
+    }
+    
+   
     
   //  Getters y setters
             
@@ -100,13 +108,19 @@ public class Libro {
         this.estado_Solicitud = estado_Solicitud;
     }
     
-// Lista de editorial
+// Lista de editorial y estados de solicitud
     
      public String[] getEditoriales() {
         String editoriales[] = {"Cambridge University Press", "Oxford University Press", "Routledge", 
             "Srpinger","Elsevier","Peter Lang","Thomson Reuters","Blackwell","De Gruyter","McGraw Hill"};
         return editoriales;
     }
+     
+     public String[] getEstadoSolicitud(){
+         String estados[] = {"Nuevo", "En revision", "Autorizado","Solicitado al provedor", "Entregado"};
+                 return estados;
+         }
+     
      
      //metodo emptyModel
     

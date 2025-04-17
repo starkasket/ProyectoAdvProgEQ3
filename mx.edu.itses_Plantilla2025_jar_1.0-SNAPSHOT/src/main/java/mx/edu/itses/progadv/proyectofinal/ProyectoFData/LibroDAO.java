@@ -7,7 +7,7 @@ package mx.edu.itses.progadv.proyectofinal.ProyectoFData;
 
 import java.util.List;
 import java.util.Map;
-import mx.edu.itses.progadv.proyectofinal.ProyectoFModelo.Libro;
+import mx.edu.itses.progadv.proyectofinal.ProyectoFModels.Libro;
 
 
 /**
@@ -26,6 +26,9 @@ public interface LibroDAO {
     
     public int delete(String id);
     
-    public Map<String,String> editoriales();
+    //Actualice para representar las dos listas editoriales y solicitudes por eso cambie a un constructor
+    public Map<String,Libro> editoriales();
     
+   
+
 }

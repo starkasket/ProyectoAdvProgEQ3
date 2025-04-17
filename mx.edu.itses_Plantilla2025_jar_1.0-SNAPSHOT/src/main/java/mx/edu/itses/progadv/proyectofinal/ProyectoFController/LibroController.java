@@ -10,7 +10,7 @@ import java.util.Map;
 import javax.swing.JOptionPane;
 import mx.edu.itses.progadv.proyectofinal.ProyectoFData.Conexion;
 import mx.edu.itses.progadv.proyectofinal.ProyectoFData.LibroDAOJDBC;
-import mx.edu.itses.progadv.proyectofinal.ProyectoFModelo.Libro;
+import mx.edu.itses.progadv.proyectofinal.ProyectoFModels.Libro;
 import mx.edu.itses.progadv.proyectofinal.ProyectoFView.LibroView;
 
 /**
@@ -42,18 +42,21 @@ public class LibroController {
     }
   
  
-     //Metodo de creacion(Dar alta)
-  public static void createLibro(){
+     //Metodo de creacion(Dar alta) solo actualice el Map agregando como 2 parametro sun constructor con las dos variables en el DAOJDBC y el String id
+  public static void createLibro() {
+    LibroDAOJDBC LibroDao = new LibroDAOJDBC();
+    Map<String, Libro> editoriales = LibroDao.editoriales();
+
+    for (Map.Entry<String, Libro> editorial : editoriales.entrySet()) {
+        System.out.println("ID: " + editorial.getKey());
+        System.out.println("Editorial: " + editorial.getValue().getEditorial());
+        System.out.println("Estado de Solicitud: " + editorial.getValue().getEstado_Solicitud());
       
-        LibroDAOJDBC LibroDao = new LibroDAOJDBC();
-        Map<String, String> editoriales = LibroDao.editoriales();
-        
-         for(Map.Entry<String,String> editorial: editoriales.entrySet()){
-            System.out.println("ID:" + editorial.getKey());
-            System.out.println("Valor:" +editorial.getValue());
-        }
-     //    view.createLibro(editoriales);
-  }
+    }
+
+
+    // view.createLibro(editoriales);
+}
   
   //Metdo read
   public static void readLibro(){
