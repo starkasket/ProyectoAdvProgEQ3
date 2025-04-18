@@ -15,6 +15,7 @@ public class Sistema {
         
         Principal principal = new Principal();
         principal.setVisible(true);
+        
     }
     
 }

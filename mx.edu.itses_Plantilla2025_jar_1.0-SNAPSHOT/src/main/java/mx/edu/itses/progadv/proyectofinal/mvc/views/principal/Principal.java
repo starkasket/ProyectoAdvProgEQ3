@@ -16,8 +16,11 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import mx.edu.itses.progadv.proyectofinal.mvc.controllers.EmpleadoController;
+import mx.edu.itses.progadv.proyectofinal.mvc.controllers.LibroController;
 import mx.edu.itses.progadv.proyectofinal.mvc.models.Empleado;
+import mx.edu.itses.progadv.proyectofinal.mvc.models.Libro;
 import mx.edu.itses.progadv.proyectofinal.mvc.views.empleado.EmpleadoView;
+import mx.edu.itses.progadv.proyectofinal.mvc.views.libro.LibroView;
 
 /**
  *
@@ -232,7 +235,9 @@ public class Principal extends javax.swing.JFrame implements MouseListener, Efec
                 System.out.println("CODIFICAR EL CONTROLADOR CLIENTES AQUI");
                 break;
             case "jplLibros":
-                System.out.println("CODIFICAR EL CONTROLADOR LIBROS AQUI");
+                 LibroController  librocontroller = new LibroController(new Libro(),new LibroView());
+                //NOTA: REVISAR LLAMADA A MÉTODO EN EL CONTROLADOR
+                librocontroller.CRUDLibro();
                 break;
             case "jplPedidos":
                 System.out.println("CODIFICAR EL CONTROLADOR PEDIDOS AQUI");
