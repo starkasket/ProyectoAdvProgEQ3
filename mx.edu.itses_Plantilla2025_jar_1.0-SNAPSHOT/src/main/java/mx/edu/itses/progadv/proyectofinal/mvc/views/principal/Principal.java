@@ -16,8 +16,11 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import mx.edu.itses.progadv.proyectofinal.mvc.controllers.EmpleadoController;
+import mx.edu.itses.progadv.proyectofinal.mvc.controllers.LibroPeticionesController;
 import mx.edu.itses.progadv.proyectofinal.mvc.models.Empleado;
+import mx.edu.itses.progadv.proyectofinal.mvc.models.LibroPeticiones;
 import mx.edu.itses.progadv.proyectofinal.mvc.views.empleado.EmpleadoView;
+import mx.edu.itses.progadv.proyectofinal.mvc.views.libro.LibroPeticionesView;
 
 /**
  *
@@ -66,7 +69,7 @@ public class Principal extends javax.swing.JFrame implements MouseListener, Efec
         jplClientes = new javax.swing.JPanel();
         lblClientes = new javax.swing.JLabel();
         jplPedidos = new javax.swing.JPanel();
-        lblProductos1 = new javax.swing.JLabel();
+        lblPedidos = new javax.swing.JLabel();
         jplVentas = new javax.swing.JPanel();
         lblVentas = new javax.swing.JLabel();
         jplContent = new javax.swing.JPanel();
@@ -155,12 +158,12 @@ public class Principal extends javax.swing.JFrame implements MouseListener, Efec
         jplPedidos.setName("jplLibros"); // NOI18N
         jplPedidos.setLayout(new java.awt.BorderLayout());
 
-        lblProductos1.setBackground(new java.awt.Color(0, 60, 92));
-        lblProductos1.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
-        lblProductos1.setForeground(new java.awt.Color(255, 255, 255));
-        lblProductos1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblProductos1.setText("Pedidos");
-        jplPedidos.add(lblProductos1, java.awt.BorderLayout.CENTER);
+        lblPedidos.setBackground(new java.awt.Color(0, 60, 92));
+        lblPedidos.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
+        lblPedidos.setForeground(new java.awt.Color(255, 255, 255));
+        lblPedidos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblPedidos.setText("Pedidos");
+        jplPedidos.add(lblPedidos, java.awt.BorderLayout.CENTER);
 
         jplSideMenu.add(jplPedidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 200, 30));
 
@@ -213,8 +216,8 @@ public class Principal extends javax.swing.JFrame implements MouseListener, Efec
     private javax.swing.JLabel lblClientes;
     private javax.swing.JLabel lblEmpleados;
     private javax.swing.JLabel lblLogo;
+    private javax.swing.JLabel lblPedidos;
     private javax.swing.JLabel lblProductos;
-    private javax.swing.JLabel lblProductos1;
     private javax.swing.JLabel lblSalir;
     private javax.swing.JLabel lblVentas;
     // End of variables declaration//GEN-END:variables
@@ -235,7 +238,10 @@ public class Principal extends javax.swing.JFrame implements MouseListener, Efec
                 System.out.println("CODIFICAR EL CONTROLADOR LIBROS AQUI");
                 break;
             case "jplPedidos":
-                System.out.println("CODIFICAR EL CONTROLADOR PEDIDOS AQUI");
+                System.out.println("Click en pedidos");
+                LibroPeticionesController libropeticiones = new LibroPeticionesController(new LibroPeticiones(),new LibroPeticionesView());
+                
+                libropeticiones.CRUDPeticiones();
                 break;
             case "jplVentas":
                 System.out.println("CODIFICAR EL CONTROLADOR VENTAS AQUI");

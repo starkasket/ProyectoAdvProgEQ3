@@ -263,7 +263,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="lblProductos1">
+                <Component class="javax.swing.JLabel" name="lblPedidos">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="5c" green="3c" red="0" type="rgb"/>
