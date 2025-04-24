@@ -11,74 +11,75 @@ import java.util.Map;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import mx.edu.itses.progadv.proyectofinal.mvc.controllers.EmpleadoController;
+import mx.edu.itses.progadv.proyectofinal.mvc.controllers.PeticionController;
 import mx.edu.itses.progadv.proyectofinal.mvc.models.Empleado;
+import mx.edu.itses.progadv.proyectofinal.mvc.models.Peticion;
 
 /**
  *
  * @author Administrador
  */
-public class EmpleadoView {
+public class PeticionView {
     
-    private static CRUDEmpleado vistaCRUD;
+    private static CRUDPeticion vistaCRUD;
 
-    public void CRUDEmpleado(Empleado model) {
+    public void CRUDPeticion(Peticion model) {
         FlatLightLaf.setup();
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-               vistaCRUD = new CRUDEmpleado(model);
+               vistaCRUD = new CRUDPeticion(model);
                vistaCRUD.setVisible(true);
             }
         });
         
     }
 
-    public void createEmpleado(Map<String,String> departamentos ) {
+    public void createPeticion(Map<String,String> editoriales, Map<String,String> estados ) {
         FlatLightLaf.setup();
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new createForm(departamentos).setVisible(true);
+                new createFormPeticion(editoriales, estados).setVisible(true);
             }
         });
     }
 
-    public void readEmpleado(Empleado model) {
+    public void readPeticion(Peticion model) {
         FlatLightLaf.setup();
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new readForm(model).setVisible(true);
+                new readFormPeticion(model).setVisible(true);
             }
         });
 
     }
     
     
-    public void updateEmpleado(Empleado model) {
+    public void updatePeticion(Peticion model) {
         
         FlatLightLaf.setup();
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new updateForm(model).setVisible(true);
+                new updateFormPeticion(model).setVisible(true);
             }
         });
 
     }
 
-    public static void guardarEmpleado(String id,String nombre, String apellidos, String departamento) {
+    public static void guardarPeticion(String id,String nombre, String editorial, String clienteSolicitando, int cantidadSolicitada, String estadoSolicitud) {
 
-        EmpleadoController.guardarEmpleado(id, nombre, apellidos, departamento);
-
+        PeticionController.guardarPeticion(id, nombre, editorial, clienteSolicitando, cantidadSolicitada, estadoSolicitud);
     }
     
     public static void mensaje(String message){
         JOptionPane.showMessageDialog(null,message);
     }
     
-   public void updateTable(List<Empleado> empleados){
-       vistaCRUD.updateTabla(empleados);
+   public void updateTable(List<Peticion> peticiones){
+       vistaCRUD.updateTabla(peticiones);
    }
    
    public String getTableRow(){

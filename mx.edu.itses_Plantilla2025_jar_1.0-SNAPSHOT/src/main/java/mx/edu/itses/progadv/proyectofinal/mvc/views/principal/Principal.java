@@ -16,8 +16,11 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import mx.edu.itses.progadv.proyectofinal.mvc.controllers.EmpleadoController;
+import mx.edu.itses.progadv.proyectofinal.mvc.controllers.PeticionController;
 import mx.edu.itses.progadv.proyectofinal.mvc.models.Empleado;
+import mx.edu.itses.progadv.proyectofinal.mvc.models.Peticion;
 import mx.edu.itses.progadv.proyectofinal.mvc.views.empleado.EmpleadoView;
+import mx.edu.itses.progadv.proyectofinal.mvc.views.peticiones.PeticionView;
 
 /**
  *
@@ -232,11 +235,18 @@ public class Principal extends javax.swing.JFrame implements MouseListener, Efec
                 System.out.println("CODIFICAR EL CONTROLADOR CLIENTES AQUI");
                 break;
             case "jplLibros":
-                System.out.println("CODIFICAR EL CONTROLADOR LIBROS AQUI");
+                // SE INSTANCIA EL CONTROLADOR Y SE LLAMA AL MÉTODO DEL CRUD
+                // DEBERÍA SER COLOCADO EN EL CASO DE 'jplPedidos' PERO
+                // ESTE NO SE DETECTA CORRECTAMENTE; AL CLICAR EN 'PEDIDOS' EN 
+                // LA INTERFAZ SE ACTIVA EL CASO 'jplLibros' NO EL QUE LE CORRESPONDE
+                // (TAMBIÉN SE ACTIVA SI SE DA CLIC EN 'LIBROS'
+                   PeticionController  peticioncontroller = new PeticionController(new Peticion(),new PeticionView());
+               
+                 peticioncontroller.CRUDPeticion();
                 break;
             case "jplPedidos":
-                System.out.println("CODIFICAR EL CONTROLADOR PEDIDOS AQUI");
-                break;
+              
+                 break;
             case "jplVentas":
                 System.out.println("CODIFICAR EL CONTROLADOR VENTAS AQUI");
 

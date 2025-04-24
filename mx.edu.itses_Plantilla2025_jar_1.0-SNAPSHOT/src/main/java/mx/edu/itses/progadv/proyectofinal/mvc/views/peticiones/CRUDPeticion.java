@@ -4,6 +4,7 @@
  */
 package mx.edu.itses.progadv.proyectofinal.mvc.views.peticiones;
 
+import mx.edu.itses.progadv.proyectofinal.mvc.views.principal.*;
 import mx.edu.itses.progadv.proyectofinal.mvc.views.empleado.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,13 +14,16 @@ import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import mx.edu.itses.progadv.proyectofinal.mvc.controllers.EmpleadoController;
-import mx.edu.itses.progadv.proyectofinal.mvc.models.Empleado;
+
+import mx.edu.itses.progadv.proyectofinal.mvc.controllers.PeticionController;
+
+import mx.edu.itses.progadv.proyectofinal.mvc.models.Peticion;
 
 /**
  *
  * @author Administrador
  */
-public class CRUDEmpleado extends javax.swing.JFrame {
+public class CRUDPeticion extends javax.swing.JFrame {
 
     private static DefaultTableModel tabla;
     private int renglon;
@@ -29,7 +33,7 @@ public class CRUDEmpleado extends javax.swing.JFrame {
      *
      * @param model
      */
-    public CRUDEmpleado(Empleado model) {
+    public CRUDPeticion(Peticion model) {
         initComponents();
 
         tabla = (DefaultTableModel) tblEmpleados.getModel();
@@ -44,10 +48,12 @@ public class CRUDEmpleado extends javax.swing.JFrame {
         
         tabla.removeRow(2);*/
         setLocationRelativeTo(null);
+        setVisible(true);
+        
         btnCreate.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                EmpleadoController.createEmpleado();
+                PeticionController.createPeticion();
             }
 
         });
@@ -55,7 +61,7 @@ public class CRUDEmpleado extends javax.swing.JFrame {
         btnRead.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                EmpleadoController.readEmpleado();
+                PeticionController.readPeticion();
             }
 
         });
@@ -63,22 +69,23 @@ public class CRUDEmpleado extends javax.swing.JFrame {
         btnUpdate.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                EmpleadoController.updateEmpleado();
+                PeticionController.updatePeticion();
             }
 
         });
         btnDelete.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                EmpleadoController.deleteEmpleado();
+                PeticionController.deletePeticion();
             }
 
         });
+        
         //IMPORTANTE
         // CUANDO SE CREA POR PRIMERA VEZ EL FORMULARIO HAY QUE INVOCAR EL MÉTODO INDEX DESDE ESTE PUNTO
         SwingUtilities.invokeLater(() -> {
             // LLENA LOS DATOS DE LOS EMPLEADOS
-            EmpleadoController.index();
+            PeticionController.index();
         });
     }
 
@@ -104,20 +111,20 @@ public class CRUDEmpleado extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        btnCreate.setText("Create");
+        btnCreate.setText("Solicitar");
         jplBotones.add(btnCreate);
 
         btnRead.setText("Read");
         jplBotones.add(btnRead);
 
-        btnUpdate.setText("Update");
+        btnUpdate.setText("Modificar");
         jplBotones.add(btnUpdate);
 
         btnDelete.setText("Delete");
         jplBotones.add(btnDelete);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel1.setText("CRUD de modelo Empleado");
+        jLabel1.setText("CRUD de modelo Libro Peticiones");
         jplTitulo.add(jLabel1);
 
         tblEmpleados.setModel(new javax.swing.table.DefaultTableModel(
@@ -125,14 +132,14 @@ public class CRUDEmpleado extends javax.swing.JFrame {
 
             },
             new String [] {
-                "#", "Nombre", "Apellidos", "Departamento"
+                "#", "Nombre del libro", "Editorial", "Cliente solicitante", "Cantidad solicitada", "Estado"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -164,14 +171,14 @@ public class CRUDEmpleado extends javax.swing.JFrame {
             .addGroup(pnlIndexLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jplBotones, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
+            .addComponent(jplBotones, javax.swing.GroupLayout.DEFAULT_SIZE, 948, Short.MAX_VALUE)
             .addComponent(jplTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(pnlIndex, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -198,22 +205,24 @@ public class CRUDEmpleado extends javax.swing.JFrame {
             renglon = tabla.rowAtPoint(evt.getPoint());
         }
         System.out.println(renglon);
+        
 
     }//GEN-LAST:event_tblEmpleadosMousePressed
 
-    public void updateTabla(List<Empleado> empleados) {
+    public void updateTabla(List<Peticion> peticiones) {
 
-        for (int i = CRUDEmpleado.tabla.getRowCount() - 1; i >= 0; i--) {
-            CRUDEmpleado.tabla.removeRow(i);
+        for (int i = CRUDPeticion.tabla.getRowCount() - 1; i >= 0; i--) {
+            CRUDPeticion.tabla.removeRow(i);
         }
 
-        empleados.forEach(model -> {
-            CRUDEmpleado.tabla.addRow(new Object[]{model.getId(), model.getNombre(), model.getApellidos(), model.getDepartamento()});
+        peticiones.forEach(model -> {
+            CRUDPeticion.tabla.addRow(new Object[]{model.getId(), model.getNombre(), model.getEditorial(), model.getClienteSolicitando(), model.getCantidadSolicitada(), model.getEstadoSolicitud()});
+        
         });
     }
 
     public String getTableRow() {
-        return CRUDEmpleado.tabla.getValueAt(renglon, 0).toString();
+        return CRUDPeticion.tabla.getValueAt(renglon, 0).toString();
     }
 
 

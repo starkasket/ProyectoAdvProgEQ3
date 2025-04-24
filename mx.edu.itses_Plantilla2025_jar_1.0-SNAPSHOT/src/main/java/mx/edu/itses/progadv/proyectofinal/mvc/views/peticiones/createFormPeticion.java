@@ -4,7 +4,8 @@
  */
 package mx.edu.itses.progadv.proyectofinal.mvc.views.peticiones;
 
-import mx.edu.itses.progadv.proyectofinal.mvc.views.empleado.*;
+import mx.edu.itses.progadv.proyectofinal.mvc.views.principal.*;
+import mx.edu.itses.progadv.proyectofinal.mvc.views.libro.*;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,35 +16,51 @@ import javax.swing.JOptionPane;
  *
  * @author Administrador
  */
-public class createForm extends javax.swing.JFrame {
+public class createFormPeticion extends javax.swing.JFrame {
 
     /**
      * Creates new form Ejemplo5
      *
-     * @param departamentos
+     * @param editoriales
+     * @param estado_Solicitud
      */
-    public createForm(Map<String, String> departamentos) {
+    public createFormPeticion(Map<String, String> editoriales, Map<String, String> estadoSolicitud) {
         initComponents();
         this.setLocationRelativeTo(null);
 
-        for (Map.Entry<String, String> departamento : departamentos.entrySet()) {
-            cmbDepartamento.addItem(departamento.getValue());
+        for (Map.Entry<String, String> editorial : editoriales.entrySet()) {
+            cmbEditoriales.addItem(editorial.getValue());
+        }
+
+        for (Map.Entry<String, String> estado : estadoSolicitud.entrySet()) {
+            cmbEstado.addItem(estado.getValue());
         }
 
         btnGuardar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String id_departamento = "";
-                for (Map.Entry<String, String> departamento : departamentos.entrySet()) {
-                    if(departamento.getValue().equals(cmbDepartamento.getSelectedItem().toString())){
-                        id_departamento = departamento.getKey();
+                String id_editorial = "";
+
+                for (Map.Entry<String, String> editorial : editoriales.entrySet()) {
+                    if (editorial.getValue().equals(cmbEditoriales.getSelectedItem().toString())) {
+                        id_editorial = editorial.getKey();
                         break;
-                    }                        
+                    }
                 }
-                EmpleadoView.guardarEmpleado("", txtNombre.getText(), txtApellidos.getText(),
-                        id_departamento);
+                String id_estado = "";
+                for (Map.Entry<String, String> estado : estadoSolicitud.entrySet()) {
+                    if (estado.getValue().equals(cmbEstado.getSelectedItem().toString())) {
+                        id_estado = estado.getKey();
+                        break;
+                    }
+                }
+
+                PeticionView.guardarPeticion("", txtNombre.getText(), id_editorial, txtcliente_solicitante.getText(),
+                        Integer.parseInt(txtcantidad_solicitada.getText()), id_estado);
+                System.out.println("FORM: nombre: " + txtNombre.getText() + "\n Id_editorial: " + id_editorial + "\n cliente: " + txtcliente_solicitante.getText() + "\nCantidad: " + txtcantidad_solicitada.getText() + "\nEstado" + id_estado);
+
                 dispose();
-                EmpleadoView.mensaje("Se creo el empleado correctamente.");
+                PeticionView.mensaje("Se creo la peticion correctamente.");
 
             }
 
@@ -66,49 +83,65 @@ public class createForm extends javax.swing.JFrame {
         jplFormulario = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        txtApellidos = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        cmbDepartamento = new javax.swing.JComboBox<>();
         btnGuardar = new javax.swing.JButton();
+        cmbEditoriales = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
+        txtcantidad_solicitada = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        txtcliente_solicitante = new javax.swing.JTextField();
+        cmbEstado = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jplPrincipal.setPreferredSize(new java.awt.Dimension(360, 360));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel1.setText("Nuevo Empleado");
+        jLabel1.setText("Libro a solicitar");
         jplTítulo.add(jLabel1);
 
         jLabel2.setText("Nombre");
 
-        jLabel3.setText("Apellidos");
-
-        jLabel4.setText("Departamento");
+        jLabel4.setText("Editorial");
 
         btnGuardar.setText("Guardar");
+
+        jLabel5.setText("Cantidad solicitada");
+
+        jLabel6.setText("Estado");
+
+        jLabel7.setText("Cliente solicitante");
 
         javax.swing.GroupLayout jplFormularioLayout = new javax.swing.GroupLayout(jplFormulario);
         jplFormulario.setLayout(jplFormularioLayout);
         jplFormularioLayout.setHorizontalGroup(
             jplFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jplFormularioLayout.createSequentialGroup()
-                .addGap(0, 12, Short.MAX_VALUE)
+            .addGroup(jplFormularioLayout.createSequentialGroup()
+                .addComponent(jLabel7)
+                .addGap(39, 39, 39)
+                .addComponent(txtcliente_solicitante))
+            .addGroup(jplFormularioLayout.createSequentialGroup()
                 .addGroup(jplFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4))
-                .addGap(18, 18, 18)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6))
+                .addGap(30, 30, 30)
                 .addGroup(jplFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtcantidad_solicitada)
                     .addGroup(jplFormularioLayout.createSequentialGroup()
-                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jplFormularioLayout.createSequentialGroup()
-                        .addGroup(jplFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cmbDepartamento, 0, 148, Short.MAX_VALUE)
-                            .addComponent(txtApellidos)
-                            .addComponent(txtNombre))
-                        .addGap(29, 29, 29))))
+                    .addGroup(jplFormularioLayout.createSequentialGroup()
+                        .addGroup(jplFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cmbEditoriales, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(jplFormularioLayout.createSequentialGroup()
+                .addGap(79, 79, 79)
+                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jplFormularioLayout.setVerticalGroup(
             jplFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -117,17 +150,25 @@ public class createForm extends javax.swing.JFrame {
                 .addGroup(jplFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jplFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jplFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cmbDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
                 .addGap(18, 18, 18)
+                .addGroup(jplFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(cmbEditoriales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jplFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(txtcliente_solicitante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addGroup(jplFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtcantidad_solicitada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jplFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                 .addComponent(btnGuardar)
-                .addContainerGap())
+                .addGap(31, 31, 31))
         );
 
         javax.swing.GroupLayout jplPrincipalLayout = new javax.swing.GroupLayout(jplPrincipal);
@@ -139,7 +180,7 @@ public class createForm extends javax.swing.JFrame {
                 .addGroup(jplPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jplTítulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jplFormulario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
         jplPrincipalLayout.setVerticalGroup(
             jplPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -177,15 +218,19 @@ public class createForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;
-    private javax.swing.JComboBox<String> cmbDepartamento;
+    private javax.swing.JComboBox<String> cmbEditoriales;
+    private javax.swing.JComboBox<String> cmbEstado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jplFormulario;
     private javax.swing.JPanel jplPrincipal;
     private javax.swing.JPanel jplTítulo;
-    private javax.swing.JTextField txtApellidos;
     private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtcantidad_solicitada;
+    private javax.swing.JTextField txtcliente_solicitante;
     // End of variables declaration//GEN-END:variables
 }
