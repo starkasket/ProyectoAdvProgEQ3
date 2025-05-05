@@ -1,0 +1,39 @@
+CREATE TABLE editoriales(
+    editorial VARCHAR(128) NOT NULL,
+    id VARCHAR(32) PRIMARY KEY
+);
+
+CREATE TABLE estados_solicitud(
+    id VARCHAR(32) PRIMARY KEY,
+    estado VARCHAR(64) NOT NULL
+);
+
+CREATE TABLE solicitudes(
+    id VARCHAR(32) PRIMARY KEY,
+    id_clientes VARCHAR(64) NOT NULL,
+    id_empleados VARCHAR(64) NOT NULL,
+    libro VARCHAR(64) NOT NULL,
+    id_editoriales VARCHAR(64) NOT NULL,
+    cantidad numeric(32,0) NOT NULL,
+    id_estados_solicitud VARCHAR(64) NOT NULL,
+    fecha_solicitud TIMESTAMP,
+    fecha_creacion TIMESTAMP,
+    fecha_modificacion TIMESTAMP,
+    eliminado boolean
+);
+
+
+/*EN CASO DE NO EXISTIR LA TABLA EN LA BASE DE DATOS*/
+
+/*
+CREATE TABLE clientes(
+    id VARCHAR(32) PRIMARY KEY,
+    numero_cliente VARCHAR(64) NOT NULL,
+    nombre_cliente VARCHAR(64) NOT NULL 
+);
+CREATE TABLE empleados(
+    id VARCHAR(32) PRIMARY KEY,
+    nombre VARCHAR(128) NOT NULL,
+    apellidos VARCHAR(512) NOT NULL 
+);
+*/
