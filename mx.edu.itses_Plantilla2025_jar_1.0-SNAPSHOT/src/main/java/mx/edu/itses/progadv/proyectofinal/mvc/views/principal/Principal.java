@@ -235,17 +235,17 @@ public class Principal extends javax.swing.JFrame implements MouseListener, Efec
                 System.out.println("CODIFICAR EL CONTROLADOR CLIENTES AQUI");
                 break;
             case "jplLibros":
-                // SE INSTANCIA EL CONTROLADOR Y SE LLAMA AL MÉTODO DEL CRUD
-                // DEBERÍA SER COLOCADO EN EL CASO DE 'jplPedidos' PERO
-                // ESTE NO SE DETECTA CORRECTAMENTE; AL CLICAR EN 'PEDIDOS' EN 
-                // LA INTERFAZ SE ACTIVA EL CASO 'jplLibros' NO EL QUE LE CORRESPONDE
-                // (TAMBIÉN SE ACTIVA SI SE DA CLIC EN 'LIBROS'
+        
+                break;
+            case "jplPedidos":
+                     // SE INSTANCIA EL CONTROLADOR Y SE LLAMA AL MÉTODO DEL CRUD
+          
                    PeticionController  peticioncontroller = new PeticionController(new Peticion(),new PeticionView());
                
                  peticioncontroller.CRUDPeticion();
-                break;
-            case "jplPedidos":
-              
+
+                
+                
                  break;
             case "jplVentas":
                 System.out.println("CODIFICAR EL CONTROLADOR VENTAS AQUI");

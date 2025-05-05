@@ -116,11 +116,18 @@ import mx.edu.itses.progadv.proyectofinal.mvc.views.peticiones.PeticionView;
         int respuesta = JOptionPane.showConfirmDialog(null, "¿Estás seguro de eliminar el registro?", "Eliminar peticion", JOptionPane.YES_NO_OPTION);
         if (respuesta == 0) {
             String id = view.getTableRow();
-            PeticionDAOJDBC peticionDao = new PeticionDAOJDBC();
-            int deleterow = peticionDao.delete(id);
-            if (deleterow == 1) {
-                index();
-                System.out.println("Registros eliminados: " + deleterow);
+            model = findModel(id);
+            System.out.println(model.getEstadoSolicitud());
+            if (Integer.parseInt(model.getEstadoSolicitud()) != 5) {
+                PeticionDAOJDBC peticionDao = new PeticionDAOJDBC();
+                int deleterow = peticionDao.delete(id);
+                if (deleterow == 1) {
+                    index();
+                    System.out.println("Registros eliminados: " + deleterow);
+                }
+
+            } else{
+              view.mensaje("No se puede eliminar una petición ya entregada.");  
             }
         }
 
