@@ -35,12 +35,12 @@ public class PeticionView {
         
     }
 
-    public void createPeticion(Map<String,String> editoriales, Map<String,String> estados ) {
+    public void createPeticion(Map<String,String> editoriales, Map<String,String> estados, Map<String,String> clientes, Map<String,String> empleados) {
         FlatLightLaf.setup();
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new createFormPeticion(editoriales, estados).setVisible(true);
+                new createFormPeticion(editoriales, estados, clientes, empleados).setVisible(true);
             }
         });
     }
@@ -69,9 +69,8 @@ public class PeticionView {
 
     }
 
-    public static void guardarPeticion(String id,String nombre, String editorial, String clienteSolicitando, int cantidadSolicitada, String estadoSolicitud) {
-
-        PeticionController.guardarPeticion(id, nombre, editorial, clienteSolicitando, cantidadSolicitada, estadoSolicitud);
+    public static void guardarPeticion(String id,String nombre, String editorial, String clienteSolicitando, int cantidadSolicitada, String estadoSolicitud, String empleado) {
+        PeticionController.guardarPeticion(id, nombre, editorial, clienteSolicitando, cantidadSolicitada, estadoSolicitud, empleado);
     }
     
     public static void mensaje(String message){

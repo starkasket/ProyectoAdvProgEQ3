@@ -28,5 +28,7 @@ public interface PeticionDAO {
     //Se cambió el mapeado a que las llaves y valores sean String
     public Map<String,String> editoriales();
     public Map<String,String> estados();
+    public Map<String,String> clientes();
+    public Map<String,String> empleados();
     
 }

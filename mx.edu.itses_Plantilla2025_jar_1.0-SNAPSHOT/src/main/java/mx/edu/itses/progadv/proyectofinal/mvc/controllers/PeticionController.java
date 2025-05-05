@@ -51,7 +51,17 @@ import mx.edu.itses.progadv.proyectofinal.mvc.views.peticiones.PeticionView;
             System.out.println("ID:" + estado.getKey());
             System.out.println("Valor:" + estado.getValue());
         }
-        view.createPeticion(editoriales, estados);
+        Map<String, String> clienteSolicitando = peticionDao.clientes();
+        for (Map.Entry<String, String> cliente : clienteSolicitando.entrySet()) {
+            System.out.println("ID:" + cliente.getKey());
+            System.out.println("Valor:" + cliente.getValue());
+        }
+        Map<String, String> empleados = peticionDao.empleados();
+        for (Map.Entry<String, String> empleado : empleados.entrySet()) {
+            System.out.println("ID:" + empleado.getKey());
+            System.out.println("Valor:" + empleado.getValue());
+        }
+        view.createPeticion(editoriales, estados, clienteSolicitando, empleados);
     }
 
     //Método de lectura de la petición seleccionada
@@ -70,13 +80,14 @@ import mx.edu.itses.progadv.proyectofinal.mvc.views.peticiones.PeticionView;
     }
 
     //Método para guardar una petición creada
-    public static void guardarPeticion(String id, String editorial, String clienteSolicitando, String nombreLibro, int cantidadSolicitada, String estadoSolicitud) {
+    public static void guardarPeticion(String id, String editorial, String clienteSolicitando, String nombreLibro, int cantidadSolicitada, String estadoSolicitud, String empleado) {
         model.setId(id);
         model.setNombre(nombreLibro);
         model.setEditorial(editorial);
         model.setClienteSolicitando(clienteSolicitando);
         model.setCantidadSolicitada(cantidadSolicitada);
         model.setEstadoSolicitud(estadoSolicitud);
+        model.setEmpleado(empleado);
         
         PeticionDAOJDBC peticionDao = new PeticionDAOJDBC();
         if (id.equals("")) {
@@ -115,11 +126,12 @@ import mx.edu.itses.progadv.proyectofinal.mvc.views.peticiones.PeticionView;
 
     }
 
-    // Método para rellenaar la tabla
+    // Método para rellenar la tabla
     public static void index() {
         PeticionDAOJDBC peticionDao = new PeticionDAOJDBC();
 
         List<Peticion> peticiones = peticionDao.select();
+        
         view.updateTable(peticiones);
     }
     

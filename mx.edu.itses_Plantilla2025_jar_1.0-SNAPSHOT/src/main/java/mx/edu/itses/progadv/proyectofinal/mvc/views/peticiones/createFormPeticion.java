@@ -22,9 +22,13 @@ public class createFormPeticion extends javax.swing.JFrame {
      * Creates new form Ejemplo5
      *
      * @param editoriales
-     * @param estado_Solicitud
+     * @param estadoSolicitud
+     * @param clienteSolicitando
+     * @param empleados
+     * 
+     *
      */
-    public createFormPeticion(Map<String, String> editoriales, Map<String, String> estadoSolicitud) {
+    public createFormPeticion(Map<String, String> editoriales, Map<String, String> estadoSolicitud, Map<String, String> clienteSolicitando, Map<String, String> empleados) {
         initComponents();
         this.setLocationRelativeTo(null);
 
@@ -34,6 +38,14 @@ public class createFormPeticion extends javax.swing.JFrame {
 
         for (Map.Entry<String, String> estado : estadoSolicitud.entrySet()) {
             cmbEstado.addItem(estado.getValue());
+        }
+
+        for (Map.Entry<String, String> cliente : clienteSolicitando.entrySet()) {
+            cmbClientes.addItem(cliente.getValue());
+        }
+
+        for (Map.Entry<String, String> empleado : empleados.entrySet()) {
+            cmbEmpleados.addItem(empleado.getValue());
         }
 
         btnGuardar.addActionListener(new ActionListener() {
@@ -55,9 +67,27 @@ public class createFormPeticion extends javax.swing.JFrame {
                     }
                 }
 
-                PeticionView.guardarPeticion("", txtNombre.getText(), id_editorial, txtcliente_solicitante.getText(),
-                        Integer.parseInt(txtcantidad_solicitada.getText()), id_estado);
-                System.out.println("FORM: nombre: " + txtNombre.getText() + "\n Id_editorial: " + id_editorial + "\n cliente: " + txtcliente_solicitante.getText() + "\nCantidad: " + txtcantidad_solicitada.getText() + "\nEstado" + id_estado);
+                String id_cliente = "";
+                for (Map.Entry<String, String> cliente : clienteSolicitando.entrySet()) {
+                 
+                    
+                    if (cliente.getValue().equals(cmbClientes.getSelectedItem().toString())) {
+                        
+                        id_cliente = cliente.getKey();
+                        break;
+                    }
+                }
+
+                String id_empleado = "";
+                for (Map.Entry<String, String> empleado : empleados.entrySet()) {
+                    if (empleado.getValue().equals(cmbEmpleados.getSelectedItem().toString())) {
+                        id_empleado = empleado.getKey();
+                        break;
+                    }
+                }
+                
+                PeticionView.guardarPeticion("", txtNombre.getText(), id_editorial, id_cliente,
+                        Integer.parseInt(txtcantidad_solicitada.getText()), id_estado, id_empleado);
 
                 dispose();
                 PeticionView.mensaje("Se creo la peticion correctamente.");
@@ -84,14 +114,16 @@ public class createFormPeticion extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        btnGuardar = new javax.swing.JButton();
         cmbEditoriales = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         txtcantidad_solicitada = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        txtcliente_solicitante = new javax.swing.JTextField();
         cmbEstado = new javax.swing.JComboBox<>();
+        cmbClientes = new javax.swing.JComboBox<>();
+        jLabel3 = new javax.swing.JLabel();
+        btnGuardar = new javax.swing.JButton();
+        cmbEmpleados = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -105,8 +137,6 @@ public class createFormPeticion extends javax.swing.JFrame {
 
         jLabel4.setText("Editorial");
 
-        btnGuardar.setText("Guardar");
-
         jLabel5.setText("Cantidad solicitada");
 
         jLabel6.setText("Estado");
@@ -118,58 +148,58 @@ public class createFormPeticion extends javax.swing.JFrame {
         jplFormularioLayout.setHorizontalGroup(
             jplFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jplFormularioLayout.createSequentialGroup()
-                .addComponent(jLabel7)
-                .addGap(39, 39, 39)
-                .addComponent(txtcliente_solicitante))
-            .addGroup(jplFormularioLayout.createSequentialGroup()
                 .addGroup(jplFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel4)
                     .addComponent(jLabel5)
-                    .addComponent(jLabel6))
+                    .addComponent(jLabel6)
+                    .addGroup(jplFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel4)
+                        .addComponent(jLabel2))
+                    .addComponent(jLabel7))
                 .addGap(30, 30, 30)
                 .addGroup(jplFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtcantidad_solicitada)
                     .addGroup(jplFormularioLayout.createSequentialGroup()
-                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
+                        .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jplFormularioLayout.createSequentialGroup()
                         .addGroup(jplFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cmbEditoriales, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
-            .addGroup(jplFormularioLayout.createSequentialGroup()
-                .addGap(79, 79, 79)
-                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+                            .addComponent(cmbEditoriales, 0, 148, Short.MAX_VALUE)
+                            .addComponent(txtcantidad_solicitada)
+                            .addComponent(cmbClientes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())))
         );
         jplFormularioLayout.setVerticalGroup(
             jplFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jplFormularioLayout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addGroup(jplFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(18, 18, 18)
-                .addGroup(jplFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(cmbEditoriales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jplFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(txtcliente_solicitante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12)
                 .addGroup(jplFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtcantidad_solicitada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jLabel2)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(17, 17, 17)
+                .addGroup(jplFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(cmbEditoriales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(15, 15, 15)
                 .addGroup(jplFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
-                .addComponent(btnGuardar)
-                .addGap(31, 31, 31))
+                    .addComponent(jLabel7)
+                    .addComponent(cmbClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jplFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addComponent(txtcantidad_solicitada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jplFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jplFormularioLayout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(jLabel6))
+                    .addGroup(jplFormularioLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(10, Short.MAX_VALUE))
         );
+
+        jLabel3.setText("Empleado");
+
+        btnGuardar.setText("Guardar");
 
         javax.swing.GroupLayout jplPrincipalLayout = new javax.swing.GroupLayout(jplPrincipal);
         jplPrincipal.setLayout(jplPrincipalLayout);
@@ -177,10 +207,19 @@ public class createFormPeticion extends javax.swing.JFrame {
             jplPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jplPrincipalLayout.createSequentialGroup()
                 .addContainerGap(37, Short.MAX_VALUE)
-                .addGroup(jplPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jplTítulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jplFormulario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jplPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jplPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jplTítulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jplFormulario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jplPrincipalLayout.createSequentialGroup()
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addComponent(cmbEmpleados, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(37, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jplPrincipalLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(110, 110, 110))
         );
         jplPrincipalLayout.setVerticalGroup(
             jplPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -189,7 +228,13 @@ public class createFormPeticion extends javax.swing.JFrame {
                 .addComponent(jplTítulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jplFormulario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jplPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbEmpleados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(29, 29, 29)
+                .addComponent(btnGuardar)
+                .addGap(14, 14, 14))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -218,10 +263,13 @@ public class createFormPeticion extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JComboBox<String> cmbClientes;
     private javax.swing.JComboBox<String> cmbEditoriales;
+    private javax.swing.JComboBox<String> cmbEmpleados;
     private javax.swing.JComboBox<String> cmbEstado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -231,6 +279,5 @@ public class createFormPeticion extends javax.swing.JFrame {
     private javax.swing.JPanel jplTítulo;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtcantidad_solicitada;
-    private javax.swing.JTextField txtcliente_solicitante;
     // End of variables declaration//GEN-END:variables
 }

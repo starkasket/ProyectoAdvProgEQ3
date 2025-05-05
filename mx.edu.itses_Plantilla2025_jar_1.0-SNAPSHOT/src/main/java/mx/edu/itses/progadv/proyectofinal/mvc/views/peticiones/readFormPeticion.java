@@ -29,42 +29,63 @@ public class readFormPeticion extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
 
-        /*    
-        QUITAR DE COMENTARIOS EN CASO DE QUE AL MOMENTO DE LEER LA PETICIÓN SE REQUIERA
-        VER LA EDITORIAL Y EL ESTADO EN ESPECÍFICO EN LUGAR DE SU ID
-        (e.g. EN LUGAR DE QUE EN ESTADO APAREZCA '1', APAREZCA 'Nuevo')
-        
+      
 // Instanciación del DAO de peticiones
         PeticionDAOJDBC peticionDao = new PeticionDAOJDBC();
 
         //Instanciación de dos mapeados para las editoriales y los estados
         Map<String, String> editoriales = peticionDao.editoriales();
         Map<String, String> estados = peticionDao.estados();
-        
-         String id_editorial = "";
+        Map<String, String> clientes = peticionDao.clientes();
+        Map<String, String> empleados = peticionDao.empleados();
 
-                for (Map.Entry<String, String> editorial : editoriales.entrySet()) {
-                    if (editorial.getKey().equals(model.getEditorial())) {
-                        id_editorial = editorial.getValue();
-                                                System.out.println(id_editorial);
-                        break;
-                    }
-                }
-                String id_estado = "";
-                for (Map.Entry<String, String> estado : estados.entrySet()) {
-                    if (estado.getKey().equals(model.getEstadoSolicitud())) {
-                        id_estado = estado.getValue();
-                        System.out.println(id_estado);
-                        break;
-                    }
-                } */
+        String id_editorial = "";
+
+        for (Map.Entry<String, String> editorial : editoriales.entrySet()) {
+            if (editorial.getKey().equals(model.getEditorial())) {
+                id_editorial = editorial.getValue();
+                break;
+            }
+        }
+        String id_estado = "";
+        for (Map.Entry<String, String> estado : estados.entrySet()) {
+            if (estado.getKey().equals(model.getEstadoSolicitud())) {
+                id_estado = estado.getValue();
+                break;
+            }
+        }
+        String id_cliente = "";
+
+        for (Map.Entry<String, String> cliente : clientes.entrySet()) {
+            if (cliente.getKey().equals(model.getClienteSolicitando())) {
+                id_cliente = cliente.getValue();
+                break;
+            }
+        }
+        String id_empleado = "";
+        for (Map.Entry<String, String> empleado : empleados.entrySet()) {
+            if (empleado.getKey().equals(model.getEmpleado())) {
+                id_empleado = empleado.getValue();
+                break;
+            }
+        }
+        
+          /*    
+        EN EL CASO DE QUE SE DESEE QUE APAREZCA SÓLO EL ID, AL MOMENTO DE
+        LEER UNA SOLICITUD, Y NO EL NOMBRE COMPLETO (e.g. "3" EN LUGAR DE "Routledge")  
+        QUITAR DE COMENTARIOS LOS SETTERS QUE ESTÁN COMENTADOS Y COMENTAR LOS SETTERS 
+        A LOS QUE SE LES MANDA UNA VARIABLE "id_" (e.g. "id_editorial")
+        */
         lblNombre.setText(model.getNombre());
-        lblEditor.setText(model.getEditorial());
-        // lblEditor.setText(id_editorial);
-        lblCliente.setText(model.getClienteSolicitando());
+        // lblEditor.setText(model.getEditorial());
+        lblEditor.setText(id_editorial);
+        // lblCliente.setText(model.getClienteSolicitando());
+        lblCliente.setText(id_cliente);
         lblCantidadSolicitada.setText(String.valueOf(model.getCantidadSolicitada()));
-        lblEstado.setText(model.getEstadoSolicitud());
-        //      lblEstado.setText(id_estado);
+        //lblEstado.setText(model.getEstadoSolicitud());
+        lblEstado.setText(id_estado);
+        // lblEmpleado.setText(model.getEmpleado());
+        lblEmpleado.setText(id_empleado);
 
         btnAceptar.addActionListener(new ActionListener() {
             @Override
@@ -106,6 +127,8 @@ public class readFormPeticion extends javax.swing.JFrame {
         lblCantidadSolicitada = new javax.swing.JLabel();
         lblCliente = new javax.swing.JLabel();
         lblEstado = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        lblEmpleado = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -132,50 +155,53 @@ public class readFormPeticion extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel6.setText("Estado: ");
 
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel7.setText("Empleado:");
+
         javax.swing.GroupLayout jplFormularioLayout = new javax.swing.GroupLayout(jplFormulario);
         jplFormulario.setLayout(jplFormularioLayout);
         jplFormularioLayout.setHorizontalGroup(
             jplFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jplFormularioLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jplFormularioLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jplFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jplFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING))
                 .addGroup(jplFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jplFormularioLayout.createSequentialGroup()
-                        .addGap(0, 11, Short.MAX_VALUE)
+                    .addGroup(jplFormularioLayout.createSequentialGroup()
+                        .addGap(194, 194, 194)
+                        .addComponent(lblanio_publicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jplFormularioLayout.createSequentialGroup()
+                        .addGap(35, 35, 35)
                         .addGroup(jplFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addGroup(jplFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6))
-                        .addGap(26, 26, 26)
-                        .addGroup(jplFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jplFormularioLayout.createSequentialGroup()
-                                .addGap(9, 9, 9)
                                 .addGroup(jplFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(jplFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(lblEditor, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(lblCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lblCantidadSolicitada, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(lblEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jplFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(lblEditorial, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
+                                    .addComponent(lblEditorial, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(lblnumero_paginas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(jplFormularioLayout.createSequentialGroup()
                                         .addGap(168, 168, 168)
                                         .addGroup(jplFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(lblCategorias, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                            .addComponent(lblanio_publicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jplFormularioLayout.createSequentialGroup()
-                        .addGap(158, 158, 158)
-                        .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                            .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 3, Short.MAX_VALUE)
+                                            .addComponent(lblCategorias, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))))
                 .addContainerGap())
             .addGroup(jplFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jplFormularioLayout.createSequentialGroup()
-                    .addContainerGap(140, Short.MAX_VALUE)
+                    .addContainerGap(325, Short.MAX_VALUE)
                     .addComponent(lblNombre2, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(5, 5, 5)))
         );
@@ -186,37 +212,54 @@ public class readFormPeticion extends javax.swing.JFrame {
                 .addGroup(jplFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jplFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(18, 18, 18)
+                .addGroup(jplFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jplFormularioLayout.createSequentialGroup()
-                        .addComponent(lblTitulo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jplFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(lblCategorias)))
-                    .addComponent(lblEditor, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                .addGroup(jplFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jplFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel4)
-                        .addComponent(lblEditorial))
-                    .addComponent(lblCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
-                .addGroup(jplFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jplFormularioLayout.createSequentialGroup()
-                        .addComponent(lblanio_publicacion)
-                        .addGap(12, 12, 12)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jplFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblnumero_paginas)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(lblCantidadSolicitada, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19)
-                .addGroup(jplFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jplFormularioLayout.createSequentialGroup()
+                                .addComponent(lblTitulo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblCategorias))
+                            .addComponent(lblEditor, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblEditorial))
+                    .addGroup(jplFormularioLayout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(18, 18, 18)
+                .addGroup(jplFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jplFormularioLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jplFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jplFormularioLayout.createSequentialGroup()
+                                .addComponent(lblanio_publicacion)
+                                .addGap(28, 28, 28))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jplFormularioLayout.createSequentialGroup()
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18))))
+                    .addGroup(jplFormularioLayout.createSequentialGroup()
+                        .addComponent(lblCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(lblnumero_paginas)
+                .addGroup(jplFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jplFormularioLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblCantidadSolicitada, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jplFormularioLayout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(18, 18, 18)
+                .addGroup(jplFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
                     .addComponent(lblEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(39, 39, 39)
+                .addGap(18, 18, 18)
+                .addGroup(jplFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7)
+                    .addComponent(lblEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
                 .addComponent(btnAceptar)
-                .addGap(45, 45, 45))
+                .addContainerGap())
             .addGroup(jplFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jplFormularioLayout.createSequentialGroup()
                     .addGap(63, 63, 63)
@@ -230,10 +273,10 @@ public class readFormPeticion extends javax.swing.JFrame {
             jplPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jplPrincipalLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jplPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jplFormulario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jplTítulo, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jplPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jplTítulo, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
+                    .addComponent(jplFormulario, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap(10, Short.MAX_VALUE))
         );
         jplPrincipalLayout.setVerticalGroup(
             jplPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -277,6 +320,7 @@ public class readFormPeticion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jplFormulario;
     private javax.swing.JPanel jplPrincipal;
     private javax.swing.JPanel jplTítulo;
@@ -285,6 +329,7 @@ public class readFormPeticion extends javax.swing.JFrame {
     private javax.swing.JLabel lblCliente;
     private javax.swing.JLabel lblEditor;
     private javax.swing.JLabel lblEditorial;
+    private javax.swing.JLabel lblEmpleado;
     private javax.swing.JLabel lblEstado;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblNombre2;

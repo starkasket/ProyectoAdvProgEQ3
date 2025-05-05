@@ -15,10 +15,11 @@ public class Peticion {
     private String clienteSolicitando;
     private int cantidadSolicitada;
     private String estadoSolicitud;
+    private String empleado;
 
     @Override
     public String toString() {
-        return "Peticion{" + "id=" + id + ", nombre=" + nombre + ", editorial=" + editorial + ", clienteSolicitando=" + clienteSolicitando + ", cantidadSolicitada=" + cantidadSolicitada + ", estadoSolicitud=" + estadoSolicitud + '}';
+        return "Peticion{" + "id=" + id + ", nombre=" + nombre + ", editorial=" + editorial + ", clienteSolicitando=" + clienteSolicitando + ", cantidadSolicitada=" + cantidadSolicitada + ", estadoSolicitud=" + estadoSolicitud + ", empleado=" + empleado + '}';
     }
 
    
@@ -29,28 +30,33 @@ public class Peticion {
          this.clienteSolicitando = "";
          this.cantidadSolicitada = 0;
          this.estadoSolicitud = "";
+         this.empleado = "";
      }
  
-     public Peticion(String id, String nombre, String editorial, String clienteSolicitando, int cantidadSolicitada, String estadoSolicitud) {
+     public Peticion(String id, String nombre, String editorial, String clienteSolicitando, int cantidadSolicitada, String estadoSolicitud, String empleado) {
          this.id = id;
          this.nombre = nombre;
          this.editorial = editorial;
          this.clienteSolicitando = clienteSolicitando;
          this.cantidadSolicitada = cantidadSolicitada;
          this.estadoSolicitud = estadoSolicitud;
+         this.empleado = empleado;
      }
  
-     public Peticion(String nombre, String editorial, String clienteSolicitando, int cantidadSolicitada, String estadoSolicitud) {
+     public Peticion(String nombre, String editorial, String clienteSolicitando, int cantidadSolicitada, String estadoSolicitud, String empleado) {
          this.nombre = nombre;
          this.editorial = editorial;
          this.clienteSolicitando = clienteSolicitando;
          this.cantidadSolicitada = cantidadSolicitada;
          this.estadoSolicitud = estadoSolicitud;
+         this.empleado = empleado;
      }
      
-       public Peticion(String editorial, String estadoSolicitud) {
+       public Peticion(String editorial, String estadoSolicitud, String clienteSolicitando, String empleado) {
           this.editorial = editorial;
           this.estadoSolicitud = estadoSolicitud;
+          this.clienteSolicitando = clienteSolicitando;
+          this.empleado = empleado;
       }
      
    //  Getters & setters
@@ -102,6 +108,16 @@ public class Peticion {
     public void setEstadoSolicitud(String estadoSolicitud) {
         this.estadoSolicitud = estadoSolicitud;
     }
+
+    public String getEmpleado() {
+        return empleado;
+    }
+
+    public void setEmpleado(String empleado) {
+        this.empleado = empleado;
+    }
+    
+    
              
 
      
@@ -121,6 +137,22 @@ public class Peticion {
          return estados;
      }
       
+  // Lista de empleados   
+      
+      public String[] getEmpleados() {
+         String empleados[] = {"Empleado 1", "Empleado 2", "Empleado 3", 
+             "Empleado 4","Empleado 5"};
+         return empleados;
+     }
+      
+   // Lista de clientes   
+      
+      public String[] getClientes() {
+         String clientes[] = {"Cliente 1", "Cliente 2", "CLiente 3", 
+             "Cliente 4","CLiente 5"};
+         return clientes;
+     }
+      
       //metodo emptyModel
      
       
@@ -131,6 +163,7 @@ public class Peticion {
          this.clienteSolicitando = "";
          this.cantidadSolicitada = 0;
          this.estadoSolicitud = "";
+         this.empleado = "";
      }
 
 }
